@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
 
 public class CuratedCollectionFragment extends Fragment {
     private static final String TAG = CuratedCollectionFragment.class.getSimpleName();
-    private static final String ARGS_COLLECTION_ID = "args:collection_id";
+    public static final String ARGS_COLLECTION_ID = "args:collection_id";
 
     private CuratedCollection collection;
     private TextView titleTextView;
