@@ -25,7 +25,7 @@ public class CuratedCollectionFragment extends Fragment {
     private TextView titleTextView;
     private TextView descriptionTextView;
     private ImageView previewImage;
-
+    private CuratedCollectionFragmentListener listener;
 
     public CuratedCollectionFragment() {
         super();
@@ -75,6 +75,11 @@ public class CuratedCollectionFragment extends Fragment {
             descriptionTextView.setText(collection.getDescription());
             final String imageUrl = collection.getPreviewPhotos().get(0).getUrlForSmall();
             Picasso.get().load(imageUrl).into(previewImage);
+            previewImage.setOnClickListener(v -> {
+                if (listener != null){
+                    listener.onCollectionSelected(collection.getId());
+                }
+            });
 
         }
     }
@@ -82,10 +87,18 @@ public class CuratedCollectionFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if(context instanceof CuratedCollectionFragmentListener){
+            listener = (CuratedCollectionFragmentListener) context;
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        listener = null;
+    }
+
+    public interface CuratedCollectionFragmentListener{
+        void onCollectionSelected(int collectionId);
     }
 }
